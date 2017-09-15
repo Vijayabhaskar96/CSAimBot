@@ -4,10 +4,13 @@
 
 Inspired from Sentdex's Work on his "Python Plays GTA V" series
 Thanks to,
-Sentdex (https://www.youtube.com/channel/UCfzlCWGWYyIQ0aLC5w48gBQ)
-Daniel Kukiela (https://twitter.com/daniel_kukiela) for keys.py file
+1) Sentdex (https://www.youtube.com/channel/UCfzlCWGWYyIQ0aLC5w48gBQ)
 
-##Instructions
+2) Daniel Kukiela (https://twitter.com/daniel_kukiela) for keys.py file
+
+3) Tensorflow Object Detection API
+
+## Instructions
 1) Proceed this tutorial and get Tensorflow Object Detection API Working
 https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/
 
@@ -19,11 +22,8 @@ https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-t
    Use Borderless gaming to remove the title bar of the game window (not necessary,but recommended)
    (http://westechsolutions.net/sites/WindowedBorderlessGaming/download)
 
-5)Open Run_Me.py and look for ****************** Parameters to choose ******************
-  Make changes as you want and save the file
+5) Open Run_Me.py and look for ****************** Parameters to choose ******************
+   Make changes as you want and save the file
 
-6)Run the Run_Me.py file (Make sure CSAimBot directory is the current working directory,if not python will throw error)
+6) Run the Run_Me.py file (Make sure CSAimBot directory is the current working directory,if not python will throw error)
 
-
-
-'Vijayabhaskar J'
