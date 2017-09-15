@@ -12,7 +12,8 @@ Thanks to,
 
 ## Instructions
 1) Proceed this tutorial and get Tensorflow Object Detection API Working
-https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/
+
+(https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/)
 
 2) Clone this repository and extract in your desired location.
 
