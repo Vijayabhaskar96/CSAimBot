@@ -19,6 +19,7 @@ https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-t
 3) Copy paste the object_detection folder from the Step 1 into the CSAimBot cloned folder
 
 4) Get the game running in windowed mode on top left corner of the screen
+
    Use Borderless gaming to remove the title bar of the game window (not necessary,but recommended)
    (http://westechsolutions.net/sites/WindowedBorderlessGaming/download)
 
