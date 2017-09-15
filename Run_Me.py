@@ -10,6 +10,8 @@ import numpy as np
 import os
 import tensorflow as tf
 from grabscreen import grab_screen
+import six.moves.urllib as urllib
+import tarfile
 
 keys = k.Keys({})
 
@@ -18,12 +20,29 @@ keys = k.Keys({})
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
+
+MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
+MODEL_FILE = MODEL_NAME + '.tar.gz'
+DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_OD_DIR=os.path.join(os.getcwd(),"object_detection")
-PATH_TO_MODEL=os.path.join(PATH_TO_OD_DIR,"ssd_mobilenet_v1_coco_11_06_2017")
+PATH_TO_MODEL=os.path.join(PATH_TO_OD_DIR,MODEL_NAME)
 PATH_TO_CKPT = os.path.join(PATH_TO_MODEL,'frozen_inference_graph.pb')
 PATH_TO_LABELS=os.path.join(PATH_TO_OD_DIR,"data",'mscoco_label_map.pbtxt')
 
+if os.path.isdir(PATH_TO_OD_DIR):
+    if not os.path.isdir(PATH_TO_MODEL):
+        opener = urllib.request.URLopener()
+        opener.retrieve(DOWNLOAD_BASE + MODEL_FILE, MODEL_FILE)
+        tar_file = tarfile.open(MODEL_FILE)
+        for file in tar_file.getmembers():
+          file_name = os.path.basename(file.name)
+          if 'frozen_inference_graph.pb' in file_name:
+            tar_file.extract(file, os.getcwd())
+else:
+    print("object_detection directory not found")
+    raise FileNotFoundError
+    sys.exit("object_detection not found")
 detection_graph = tf.Graph()
 
 #****************** Parameters to choose ******************
