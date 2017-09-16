@@ -11,13 +11,13 @@ Thanks to,
 3) Tensorflow Object Detection API
 
 ## Instructions
-1) Proceed this tutorial and get Tensorflow Object Detection API Working
+1) Proceed this tutorial on the below link and get Tensorflow Object Detection API Working.
 
-(https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/)
+    (https://goo.gl/ricx6n)
 
 2) Clone this repository and extract in your desired location.
 
-3) Copy paste the object_detection folder from the Step 1 into the CSAimBot cloned folder
+3) Copy paste the object_detection folder from the Step 1 into the CSAimBot cloned folder.
 
 4) Get the game running in windowed mode on top left corner of the screen
 
