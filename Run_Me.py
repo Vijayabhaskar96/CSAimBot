@@ -50,6 +50,9 @@ detection_graph = tf.Graph()
 #Resolution of the game(Make sure the game runs in windowed mode in the top left corner of your screen
 WIDTH=800
 HEIGHT=600
+RESIZE_FACTOR=4 #Keep this as low as possible to get better detection of person but it also reduces the frame rate of what bot sees
+SCORE=0.40  #Increase as long as the bot detects the person,Decrease if bot can't detect the person.
+SHOW_CAPTURE=True #Set to false if you don't want to see the captured screen
 
 #Fire using Keyboard or Mouse?
 #HIGHLY RECOMMENDED TO USE A KEYBOARD KEY TO SHOOT
@@ -108,7 +111,7 @@ with detection_graph.as_default():
     num_detections = detection_graph.get_tensor_by_name('num_detections:0')
     print("Running with Parameters:\nDevice: {},WIDTH:{} HEIGHT:{} SHOOT:{} HL_TO_FIRE:{}".format(INPUT,WIDTH,HEIGHT,SHOOT,HL_TO_FIRE))
     while True:
-        screen = cv2.resize(grab_screen(region=(0,0,WIDTH,HEIGHT)), (int(WIDTH/4),int(HEIGHT/4)))
+        screen = cv2.resize(grab_screen(region=(0,0,WIDTH,HEIGHT)), (int(WIDTH/RESIZE_FACTOR),int(HEIGHT/RESIZE_FACTOR)))
         image_np = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
         # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
         image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -125,9 +128,10 @@ with detection_graph.as_default():
           category_index,
           use_normalized_coordinates=True,
           line_thickness=3)
-        cv2.imshow('object detection',image_np)
+        if SHOW_CAPTURE:
+            cv2.imshow('Press q to quit bot',image_np)
         for i,b in enumerate(classes[0]):
-            if classes[0][i] == 1 and scores[0][i]>=0.40:
+            if classes[0][i] == 1 and scores[0][i]>=SCORE:
                 mid_x = (boxes[0][i][1]+boxes[0][i][3])/2
                 mid_y = (boxes[0][i][0]+boxes[0][i][2])/2
                 neck_loc=(boxes[0][i][0]+mid_y)/2
@@ -139,8 +143,8 @@ with detection_graph.as_default():
                 elif SHOOT=="HEAD":
                     determine_movement(mid_x = mid_x, mid_y =head_loc,width=WIDTH,height=HEIGHT)
                 else:
-                    break
                     print("Something Wrong!")
+                    break
                 if INPUT=="keyboard":
                     keys.directKey(FIRE_KEY)
                     time.sleep(HL_TO_FIRE)
