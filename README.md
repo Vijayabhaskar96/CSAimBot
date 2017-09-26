@@ -1,4 +1,4 @@
-# CSAimbot - Aim Bot FPS Games
+# CSAimbot - Aim Bot for FPS Games
 ## Using Tensorflow Object Detection API
 ##### Tested on Counter Strike 1.6 (Should work on most FPS games)
 
