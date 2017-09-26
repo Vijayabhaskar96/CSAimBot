@@ -12,7 +12,7 @@ import tensorflow as tf
 from grabscreen import grab_screen
 import six.moves.urllib as urllib
 import tarfile
-
+import argparse
 keys = k.Keys({})
 
 # ## Object detection imports
@@ -45,37 +45,49 @@ else:
     sys.exit("object_detection not found")
 detection_graph = tf.Graph()
 
+keystochose=["1","2","3","4","5","6","7","8","9","0","NUMPAD1","NUMPAD2","NUMPAD3","NUMPAD4","NUMPAD5","NUMPAD6","NUMPAD7","NUMPAD8","NUMPAD9","NUMPAD0","DIVIDE","MULTIPLY","SUBSTRACT","ADD","DECIMAL","NUMPADENTER","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","UP","LEFT","RIGHT","DOWN","ESC","SPACE","RETURN","INSERT","DELETE","HOME","END","PRIOR","NEXT","BACK","TAB","LCONTROL","RCONTROL","LSHIFT","RSHIFT","LMENU","RMENU","LWIN","RWIN","APPS","CAPITAL","NUMLOCK","SCROLL","MINUS","LBRACKET","RBRACKET","SEMICOLON","APOSTROPHE","GRAVE","BACKSLASH","COMMA","PERIOD","SLASH"]
+parser=argparse.ArgumentParser()
+parser.add_argument('--width',type=int,default=800,help="Width of the game resolution(default:800)")
+parser.add_argument('--height',type=int,default=600,help="Height of the game resolution(default:600)")
+parser.add_argument('--resize',type=int,default=4,help="Keep this as low as possible to get better detection of person but decreasing it also reduces the frame rate of what bot sees.(default:4)")
+parser.add_argument('--score',type=float,default=0.40,help="Increase as long as the bot detects the person,Decrease if bot can't detect the person.(default:0.40)")
+parser.add_argument('--show',type=bool,default=True,help="Set to False if you don't want to see the captured screen(default:True)")
+parser.add_argument('--input',type=str,default="keyboard",help='(Enter Without Quotes)Choose between "keyboard" and "mouse".(default:keyboard).Choose the --key correspondly)')
+parser.add_argument('--key',type=str,default="RETURN",help="(Enter Without Quotes)Choose Anyone from".join(str(keystochose)))
+parser.add_argument('--shoot',type=str,default="CENTER",help='(Enter Without Quotes) Shoots at CENTER of the person detected by default(choose between:CENTER,HEAD,NECK)')
+parser.add_argument('--duration',type=float,default=0.4,help='How long to shoot(in seconds),default:0.4 seconds')
+args=parser.parse_args()
+
 #****************** Parameters to choose ******************
 
 #Resolution of the game(Make sure the game runs in windowed mode in the top left corner of your screen
-WIDTH=800
-HEIGHT=600
-RESIZE_FACTOR=4 #Keep this as low as possible to get better detection of person but it also reduces the frame rate of what bot sees
-SCORE=0.40  #Increase as long as the bot detects the person,Decrease if bot can't detect the person.
-SHOW_CAPTURE=True #Set to false if you don't want to see the captured screen
+WIDTH=args.width
+HEIGHT=args.height
+RESIZE_FACTOR=args.resize #Keep this as low as possible to get better detection of person but it also reduces the frame rate of what bot sees
+SCORE=args.score  #Increase as long as the bot detects the person,Decrease if bot can't detect the person.
+SHOW_CAPTURE=args.show #Set to false if you don't want to see the captured screen
 
 #Fire using Keyboard or Mouse?
 #HIGHLY RECOMMENDED TO USE A KEYBOARD KEY TO SHOOT
-INPUT="keyboard" #if you want set it to "mouse"
+INPUT=str(args.input) #if you want set it to "mouse"
 
 #WHICH KEY SHOULD BE PRESSED INORDER TO FIRE?
 #HIGHLY RECOMMENDED TO USE A KEYBOARD KEY TO SHOOT
 if INPUT=="keyboard":
-    FIRE_KEY="RETURN" #REFER The keys.py file for list of all keys
+    FIRE_KEY=str(args.key) #REFER The keys.py file for list of all keys
 elif INPUT=="mouse":
     FIRE_KEY=keys.mouse_lb_press #If you want to change look keys.py file
     RELEASE_KEY=keys.mouse_lb_release
 #Where to Shoot?
-SHOOT="CENTER" #You can use "HEAD" or "NECK" or "CENTER"
+SHOOT=args.shoot #You can use "HEAD" or "NECK" or "CENTER"
 # CENTER - Target at 50% of the height of the detected person
 # NECK - Target at 25% of the height of the detected person
 # HEAD - Target at 12.5% of the height of the detected person
 
 #How long to press the fire button when a person is detected?
-HL_TO_FIRE=0.4 #HOLDS THE FIRE BUTTON FOR 0.4 SECONDS
+HL_TO_FIRE=args.duration #HOLDS THE FIRE BUTTON FOR 0.4 SECONDS
 
 #***********************************************************
-
 
 def determine_movement(mid_x, mid_y,width=800, height=600):
     x_move = 0.5-mid_x
