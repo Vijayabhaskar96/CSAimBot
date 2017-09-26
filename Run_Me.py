@@ -45,15 +45,15 @@ else:
     sys.exit("object_detection not found")
 detection_graph = tf.Graph()
 
-keystochose=["1","2","3","4","5","6","7","8","9","0","NUMPAD1","NUMPAD2","NUMPAD3","NUMPAD4","NUMPAD5","NUMPAD6","NUMPAD7","NUMPAD8","NUMPAD9","NUMPAD0","DIVIDE","MULTIPLY","SUBSTRACT","ADD","DECIMAL","NUMPADENTER","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","UP","LEFT","RIGHT","DOWN","ESC","SPACE","RETURN","INSERT","DELETE","HOME","END","PRIOR","NEXT","BACK","TAB","LCONTROL","RCONTROL","LSHIFT","RSHIFT","LMENU","RMENU","LWIN","RWIN","APPS","CAPITAL","NUMLOCK","SCROLL","MINUS","LBRACKET","RBRACKET","SEMICOLON","APOSTROPHE","GRAVE","BACKSLASH","COMMA","PERIOD","SLASH"]
+keystochose=r'"1","2","3","4","5","6","7","8","9","0","NUMPAD1","NUMPAD2","NUMPAD3","NUMPAD4","NUMPAD5","NUMPAD6","NUMPAD7","NUMPAD8","NUMPAD9","NUMPAD0","DIVIDE","MULTIPLY","SUBSTRACT","ADD","DECIMAL","NUMPADENTER","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","UP","LEFT","RIGHT","DOWN","ESC","SPACE","RETURN","INSERT","DELETE","HOME","END","PRIOR","NEXT","BACK","TAB","LCONTROL","RCONTROL","LSHIFT","RSHIFT","LMENU","RMENU","LWIN","RWIN","APPS","CAPITAL","NUMLOCK","SCROLL","MINUS","LBRACKET","RBRACKET","SEMICOLON","APOSTROPHE","GRAVE","BACKSLASH","COMMA","PERIOD","SLASH"'
 parser=argparse.ArgumentParser()
 parser.add_argument('--width',type=int,default=800,help="Width of the game resolution(default:800)")
 parser.add_argument('--height',type=int,default=600,help="Height of the game resolution(default:600)")
 parser.add_argument('--resize',type=int,default=4,help="Keep this as low as possible to get better detection of person but decreasing it also reduces the frame rate of what bot sees.(default:4)")
 parser.add_argument('--score',type=float,default=0.40,help="Increase as long as the bot detects the person,Decrease if bot can't detect the person.(default:0.40)")
 parser.add_argument('--show',type=bool,default=True,help="Set to False if you don't want to see the captured screen(default:True)")
-parser.add_argument('--input',type=str,default="keyboard",help='(Enter Without Quotes)Choose between "keyboard" and "mouse".(default:keyboard).Choose the --key correspondly)')
-parser.add_argument('--key',type=str,default="RETURN",help="(Enter Without Quotes)Choose Anyone from".join(str(keystochose)))
+parser.add_argument('--input',type=str,default="keyboard",help='(Enter Without Quotes)Choose between "keyboard" and "mouse".(default:keyboard).Choose the --key if chose keyboard)')
+parser.add_argument('--key',type=str,default="RETURN",help="(Enter Without Quotes)Choose Anyone from".join(keystochose))
 parser.add_argument('--shoot',type=str,default="CENTER",help='(Enter Without Quotes) Shoots at CENTER of the person detected by default(choose between:CENTER,HEAD,NECK)')
 parser.add_argument('--duration',type=float,default=0.4,help='How long to shoot(in seconds),default:0.4 seconds')
 args=parser.parse_args()
@@ -121,7 +121,7 @@ with detection_graph.as_default():
     detection_scores = detection_graph.get_tensor_by_name('detection_scores:0')
     detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
     num_detections = detection_graph.get_tensor_by_name('num_detections:0')
-    print("Running with Parameters:\nDevice: {},WIDTH:{} HEIGHT:{} SHOOT:{} HL_TO_FIRE:{}".format(INPUT,WIDTH,HEIGHT,SHOOT,HL_TO_FIRE))
+    print("Running with Parameters:\nDevice: {},WIDTH:{} HEIGHT:{} SHOOT:{} DURATION:{}".format(INPUT,WIDTH,HEIGHT,SHOOT,HL_TO_FIRE))
     while True:
         screen = cv2.resize(grab_screen(region=(0,0,WIDTH,HEIGHT)), (int(WIDTH/RESIZE_FACTOR),int(HEIGHT/RESIZE_FACTOR)))
         image_np = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
