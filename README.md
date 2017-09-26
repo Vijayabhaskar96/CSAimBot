@@ -25,6 +25,7 @@ Thanks to,
    (http://westechsolutions.net/sites/WindowedBorderlessGaming/download)
 
 5) Command Line Arguments available:
+```
     --help  : Displays all the available arguments and their usage.
     --width : Width of the game resolution(default:800)
     --height : Height of the game resolution(default:600)
@@ -35,9 +36,11 @@ Thanks to,
     --key : (Enter Without Quotes)Choose Anyone from 
     --shoot : (Enter Without Quotes) Shoots at CENTER of the person detected by default(choose between:CENTER,HEAD,NECK)
     --duration : How long to shoot(in seconds),default:0.4 seconds
+```
     
 6) Run the Run_Me.py file (Make sure CSAimBot directory is the current working directory,if not python will throw error)
-    ```python Run_Me.py
+    ```
+    python Run_Me.py
     ```
     if you want use custom settings from Step 5,Example usage:
     ```
